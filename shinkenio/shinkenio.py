@@ -46,11 +46,22 @@ class ShinkenIO(WebBackend):
         self.redirect = redirect
         config = ConfigParser.RawConfigParser()
         self.conf = config.read(cfg_path)
+        self.open_database()
+
+
+    def open_database(self):
+       self.con = pymongo.Connection('localhost')
+       print "Shinken.IO Connected to:", self.con
+       self.db    = self.con.shinken_io 
+       self.users = self.db.users
+       self.packs = self.db.packs
+       self.modules = self.db.modules
 
         
     def get_user(self, user_name):
         u = self.users.find_one({'_id' : user_name})
         return u
+
 
     def get_user_auth(self):
         # First we look for the user name
@@ -84,15 +95,32 @@ class ShinkenIO(WebBackend):
         return pwd_hash_to_verify == pwd_hash
 
 
-    def hash_password(self,password):
+
+
+    def create_user(self, name, password, email):
+        # First hash the password
+        pwd_hash, salt = self.hash_password(password)
+        print "PASSWORD HASH", pwd_hash, salt
+        
+        user = {
+            "_id"          : name,
+            "email"        : email,
+            "creation_time": int(time.time()),
+            'pwd_hash'     : pwd_hash,
+            'salt'         : salt
+            }
+        
+        print "Trying to create user", user
+        self.users.insert(user)
+        print "USER CREATION:", user
+
+
+    def hash_password(self, password):
         salt = os.urandom(64).encode('base_64')
         m = hashlib.sha256()
         m.update(salt)
         m.update(password)
         pwd_hash = m.hexdigest()
-        return {
-            "hash" : pwd_hash,
-            "salt" : salt
-        }
+        return (pwd_hash, salt)
     
     
