@@ -59,11 +59,14 @@ class ShinkenIO(WebBackend):
 
         
     def get_user(self, user_name):
+        print "GET USERS", user_name
         u = self.users.find_one({'_id' : user_name})
+        print "founded", u
         return u
 
 
     def get_user_auth(self):
+        print "get_user_auth::", request.get_cookie("user", secret=self.auth_secret)
         # First we look for the user name
         # so we bail out if it's a false one
         user_name = request.get_cookie("user", secret=self.auth_secret)
@@ -72,6 +75,7 @@ class ShinkenIO(WebBackend):
             return None
         
         u = self.get_user(user_name)
+        print "get_user_auth::return", u
         return u
     
     
@@ -95,6 +99,11 @@ class ShinkenIO(WebBackend):
         return pwd_hash_to_verify == pwd_hash
 
 
+    def login_as(self, name):
+        # Ok go for a cookie available for 1year
+        self.response.set_cookie('user', name, secret=self.auth_secret, path='/', max_age=86400*365)
+        
+
 
 
     def create_user(self, name, password, email):
@@ -107,13 +116,23 @@ class ShinkenIO(WebBackend):
             "email"        : email,
             "creation_time": int(time.time()),
             'pwd_hash'     : pwd_hash,
-            'salt'         : salt
+            'salt'         : salt,
+            'full_name'    : '',
+            'github'       : '',
+            'twitter'      : '',
+            'homepage'     : '',
             }
         
         print "Trying to create user", user
         self.users.insert(user)
         print "USER CREATION:", user
 
+
+    def edit_user(self, name, fullname, email, github, twitter, homepage):
+        d = {'full_name':fullname, 'email':email, 'github':github, 'twitter':twitter, 'homepage':homepage}
+        print "EDITING USER", d
+        self.users.update( { '_id' : name }, { '$set': d})
+        
 
     def hash_password(self, password):
         salt = os.urandom(64).encode('base_64')

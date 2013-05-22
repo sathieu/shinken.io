@@ -2,8 +2,8 @@
 $(function(){
 
     function add_error(txt){
-        $('#signup_err').html("There was a problem! The server said: " + txt);
-	$('#signup_err').show();
+        $('#login_err').html("There was a problem! The server said: " + txt);
+	$('#login_err').show();
     }
 
     function manage_return(data){
@@ -11,9 +11,9 @@ $(function(){
 	var txt    = data.text;
 	if(status == 200){
 	    // Be sure to hide the errors if need
-	    $('#signup_err').hide()
-	    // Go to the profile edit page
-	    window.location = '/profile-edit';
+	    $('#login_err').hide()
+	    // OK go to the root page now
+	    window.location = '/';
 	    return;
 	}
 	if(status == 400){
@@ -22,11 +22,11 @@ $(function(){
         }
 	
 	// How are you here?
-	$('#signup_err').html("There was a problem! The server said:" + status + "," + txt);
+	$('#login_err').html("There was a problem! The server said:" + status + "," + txt);
     }
 
 
-    $('#signup').on('submit', function() {
+    $('#login').on('submit', function() {
         // appel Ajax
         $.ajax({
             url: $(this).attr('action'),

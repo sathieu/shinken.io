@@ -1,6 +1,4 @@
-%rebase layout title='Shinken.io', refresh=False
-
-
+%rebase layout app=app, user=user, helper=helper, title='Shinken.io', refresh=False
 
 <div id="index">
   

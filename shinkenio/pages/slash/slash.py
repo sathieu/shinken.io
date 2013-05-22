@@ -14,10 +14,10 @@ app = None
 
 
 def slash():
-    return {'app' : app}
+    return {}
 
 
 
 pages = {
-    slash: {'routes': ['/'], 'view': 'slash', 'static': True},
+    slash: {'routes': ['/'], 'view': 'slash', 'static': True, 'wraps': ['classic']},
     }

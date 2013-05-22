@@ -59,6 +59,9 @@ def signup_post():
     app.create_user(name, password, email)
     txt = name
 
+    # Ok also login as the user
+    app.login_as(name)
+
     return json.dumps({'status':200, 'text':txt})
     
 

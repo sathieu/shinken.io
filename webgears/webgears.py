@@ -28,8 +28,18 @@ def do_wrap(wrap_f, f, app):
         return wrap_f(f, app, **args)
     return loc_f
 
+
 def wrap_classic_page(f, app, **args):
     print "WRAPPING FUNCTION", f, app
+    user = app.get_user_auth()
+    print "Founded user?", user
+    r = f(**args)
+    r.update({'app' : app, 'user' : user, 'helper' : helper})
+    return r
+
+
+def wrap_protected_page(f, app, **args):
+    print "WRAPPING PROTECTED", f, app
     user = app.get_user_auth()
     if not user:
         print "ANONYMOUS ACCES??? GO TO /"
@@ -38,7 +48,6 @@ def wrap_classic_page(f, app, **args):
     r = f(**args)
     r.update({'app' : app, 'user' : user, 'helper' : helper})
     return r
-
 
 
 def wrap_json_page(f, app, **args):
@@ -125,6 +134,11 @@ class WebBackend(object):
                             print "before wrap", f
                             f = do_wrap(wrap_json_page, f, self)
                             print "New wrap is", f
+                        if wrap == 'protected':
+                            print "before wrap", f
+                            f = do_wrap(wrap_protected_page, f, self)
+                            print "New wrap is", f
+                                                                                                                
 
                     # IMPORTANT: apply VIEW BEFORE route!
                     if v:
