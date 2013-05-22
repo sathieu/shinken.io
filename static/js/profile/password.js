@@ -10,7 +10,6 @@ $(function(){
 	var status = data.status;
 	var txt    = data.text;
 	if(status == 200){
-	    console.log(data);
 	    // Be sure to hide the errors if need
 	    $('#password_err').hide()
 	    // OK go to the profile page now
