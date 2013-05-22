@@ -143,3 +143,8 @@ class ShinkenIO(WebBackend):
         return (pwd_hash, salt)
     
     
+    def get_gravatar(self, user):
+        if not user or not user['email']:
+            return "https://secure.gravatar.com/avatar/avatar.jpg"
+        email = user['email']
+        return "https://secure.gravatar.com/avatar/"+hashlib.md5(email.lower()).hexdigest()

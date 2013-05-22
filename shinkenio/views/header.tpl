@@ -34,11 +34,12 @@
     <aside class="login">
       
       <div class="user profile">
+	%gravatar = app.get_gravatar(user)
 	%if not user:
-	<img src="https://secure.gravatar.com/avatar/avatar.jpg?s=100&d=mm" class="avatar-medium">
+	<img src="{{gravatar}}?s=100&d=mm" class="avatar-medium">
 	<a href=/signup>Create Account</a> | <a href=/login>Login</a>
 	%else:
-	<img src="https://secure.gravatar.com/avatar/avatar.jpg?s=100&d=mm" class="avatar-medium">
+	<img src="{{gravatar}}?s=100&d=mm" class="avatar-medium">
 	<a class="username" href="/~">{{user['_id']}}</a>
 	<p class="profsub">
           <a class="profsub" href="/profile-edit">Edit Profile</a> |

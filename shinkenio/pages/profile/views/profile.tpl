@@ -9,8 +9,9 @@
 
 <div id="profile">
   
-  <a href="http://en.gravatar.com/emails/" title="edit avatar at gravatar.com"> 
-    <img src="https://secure.gravatar.com/avatar/ffca72f7930aa27321ce7be653e8f0aa?s=496&amp;d=retro" class="avatar-large" height="248" width="248" alt="">
+  <a href="http://en.gravatar.com/emails/" title="edit avatar at gravatar.com">
+    %gravatar = app.get_gravatar(profile)
+    <img src="{{gravatar}}?s=496&amp;d=retro" class="avatar-large" height="248" width="248" alt="">
   </a>
   
 
