@@ -132,6 +132,12 @@ class ShinkenIO(WebBackend):
         d = {'full_name':fullname, 'email':email, 'github':github, 'twitter':twitter, 'homepage':homepage}
         print "EDITING USER", d
         self.users.update( { '_id' : name }, { '$set': d})
+
+
+    def change_user_password(self, name, password):
+        pwd_hash, salt = self.hash_password(password)
+        d = {'pwd_hash' : pwd_hash, 'salt' : salt}
+        self.users.update({ '_id' : name }, { '$set': d})
         
 
     def hash_password(self, password):
