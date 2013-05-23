@@ -56,7 +56,7 @@ class ShinkenIO(WebBackend):
        print "Shinken.IO Connected to:", self.con
        self.db    = self.con.shinken_io 
        self.users = self.db.users
-       self.packs = self.db.packs
+       self.packages = self.db.packages
        self.modules = self.db.modules
 
         
@@ -180,3 +180,12 @@ class ShinkenIO(WebBackend):
         f.close()
         print "File %s is saved" % p
 
+
+
+
+    def get_recently_updated(self):
+        return self.packages.find().sort([('updated',-1)]).limit(10)
+
+
+    def get_number_of_packages(self):
+        return self.packages.count()

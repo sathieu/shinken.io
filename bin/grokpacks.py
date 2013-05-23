@@ -168,6 +168,7 @@ class Groker():
             # Ok update the prev entry
             prev.update(pack)
             print "WILL SAVE for update"*100, prev
+            self.packages.update({'_id':pname}, prev)
         else:
             p_entry = {
                 "_id"          : pname,
@@ -176,7 +177,7 @@ class Groker():
                 }
             p_entry.update(pack)
             print "WILL SAVE FOR INSERT", p_entry
-            print self.packages
+            self.packages.insert(p_entry)
             
         # Now move the file in the good place
         # If not exists, the directory should be readalbe by every one
@@ -195,13 +196,6 @@ class Groker():
 
         print "UPDATE: the archive %s is updated" % dest_file
         
-
-#    def edit_user(self, name, fullname, email, github, twitter, homepage):
-#        d = {'full_name':fullname, 'email':email, 'github':github, 'twitter':twitter, 'homepage':homepage}
-#        print "EDITING USER", d
-#        self.users.update( { '_id' : name }, { '$set': d})
-
-
 
 
 if __name__ == '__main__':

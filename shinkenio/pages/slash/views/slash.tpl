@@ -2,32 +2,25 @@
 
 <div id="index">
   
-  <h1>Node Packaged Modules</h1>
+  <h1>Shinken Packages</h1>
   
-  <p>Total Packages: 29 790</p>
+  <p>Total Packages: {{app.get_number_of_packages()}}</p>
   
   <table class="downloads">
-    <tr><td>897 924</td><td> downloads in the last day</td></tr>
-    <tr><td>10 485 607</td><td> downloads in the last week</td></tr>
+    <!--<tr><td>897 924</td><td> downloads in the last day</td></tr>
+    <tr><td>10 485 607</td><td> downloads in the last week</td></tr>-->
   </table>
 
   <table>
     <tbody>
       <tr>
 	<td>
-	  <h2>Packs Updates</h2>
+	  <h2>Recently Updated</h2>
 	  <ul>
-            <li>1m <a href="/pack/kd">linux</a></li>
-            <li>3m <a href="/pack/hstrap">windows</a></li>
-            <li>6m <a href="/pack/jsonspace-core">emc</a></li>
-            <li>14m <a href="/pack/mux-demux">hpux</a></li>
-            <li>19m <a href="/pack/backpack-replicator">exchange</a></li>
-            <li>19m <a href="/pack/mangouste">vmware</a></li>
-            <li>19m <a href="/pack/modjs">switch</a></li>
-            <li>23m <a href="/pack/github-cloner">router</a></li>
-            <li>24m <a href="/pack/appmaker">printer</a></li>
-            <li>25m <a href="/pack/sioux-ui-navigation">hp</a></li>
-            <li><a href="/browse/pack/updated">More...</a></li>
+	  %for package in app.get_recently_updated():
+	    <li>{{helper.print_duration(package['updated'], just_duration=True, x_elts=1)}} <a href="/package/{{package['name']}}">{{package['name']}}</a></li>
+	  %end
+            <li><a href="/browse/updated">More...</a></li>
 	  </ul>
 	</td>
 	<td>
