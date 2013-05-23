@@ -6,6 +6,11 @@
 
 *~
 
+#data part
+data/in/*
+data/packs/*
+
+
 # Packages
 *.egg
 *.egg-info

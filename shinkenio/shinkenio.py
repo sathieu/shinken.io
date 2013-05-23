@@ -38,17 +38,19 @@ class ShinkenIO(WebBackend):
     _MY_LIB_NAME  = 'shinkenio'
 
     def __init__(self, cfg_path):
-        # Important : auth secret used for cookie crypting!
-        self.auth_secret = '9813813cbe031471896f8b6173f7e61208'
         # Also save bottle libs
         self.request  = request
         self.response = response
         self.redirect = redirect
-        config = ConfigParser.RawConfigParser()
-        self.conf = config.read(cfg_path)
+        self.conf = ConfigParser.SafeConfigParser()
+        self.conf.read(cfg_path)
+        # Important : auth secret used for cookie crypting!
+        self.auth_secret = self.conf.get('http', 'auth_secret')
+        self.data = self.conf.get('http', 'data')
+        self.data_in = self.data+'/in'
         self.open_database()
-
-
+    
+    
     def open_database(self):
        self.con = pymongo.Connection('localhost')
        print "Shinken.IO Connected to:", self.con
@@ -62,6 +64,12 @@ class ShinkenIO(WebBackend):
         print "GET USERS", user_name
         u = self.users.find_one({'_id' : user_name})
         print "founded", u
+        return u
+
+
+    def get_user_from_api_key(self, api_key):
+        u = self.users.find_one({'api_key' : api_key})
+        print "founded from api_key", u
         return u
 
 
@@ -155,3 +163,19 @@ class ShinkenIO(WebBackend):
             return "https://secure.gravatar.com/avatar/avatar.jpg"
         email = user['email']
         return "https://secure.gravatar.com/avatar/"+hashlib.md5(email.lower()).hexdigest()
+
+
+    # Will save a file into the data/in/user directory
+    def save_pushed_pack(self, name, filename, raw):
+        print "Saving a new pack file from a user:", name, filename
+        udir = os.path.join(self.data_in, name)
+        if not os.path.exists(udir):
+            print "Creating the user directory", udir
+            os.mkdir(udir)
+        p = os.path.join(udir, filename)
+        print "Now saving file", p
+        f = open(p, 'w')
+        f.write(raw)
+        f.close()
+        print "File %s is saved" % p
+

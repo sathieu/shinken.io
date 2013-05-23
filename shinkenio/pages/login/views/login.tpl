@@ -1,4 +1,4 @@
-%rebase layout title='Shinken.io', refresh=False, js=['login/login.js']
+%rebase layout locals(), title='Shinken.io', refresh=False, js=['login/login.js']
 
 
 <h1>Login, please</h1>
