@@ -8,7 +8,7 @@
 
 #data part
 data/in/*
-data/packs/*
+data/packages/*
 
 
 # Packages

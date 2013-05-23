@@ -172,6 +172,7 @@ class ShinkenIO(WebBackend):
         if not os.path.exists(udir):
             print "Creating the user directory", udir
             os.mkdir(udir)
+            os.chmod(udir,0o777)
         p = os.path.join(udir, filename)
         print "Now saving file", p
         f = open(p, 'w')

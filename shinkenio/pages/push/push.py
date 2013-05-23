@@ -51,7 +51,7 @@ def push():
 
     name = user.get('_id')
     app.save_pushed_pack(name, filename, raw)
-    return json.dumps({'status': 200, 'text': 'Hi %s, your file is uploaded! It wil be available soon' % name})
+    return json.dumps({'status': 200, 'text': 'Hi %s, your file is uploaded! It will be available soon' % name})
 
 
 pages = {push: {'routes': ['/push'], 'method': 'POST', 'view': None, 'static': True},
