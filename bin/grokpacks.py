@@ -144,6 +144,9 @@ class Groker():
         pack['keywords'] = self.assume_list_of_strings(p.get('keywords', []))
         pack['version'] = self.assume_string(p.get('version', '0'))
         pack['homepage'] = self.assume_string(p.get('homepage', ''))
+        pack['description'] = self.assume_string(p.get('description', ''))
+        pack['repository'] = self.assume_string(p.get('repository', ''))
+        
         
         return pack
 
@@ -174,6 +177,9 @@ class Groker():
                 "_id"          : pname,
                 "user_id"      : user,
                 "creation_time": int(time.time()),
+                "dependencies"   : [],
+                "dependents"     : [],
+                "starred"        : [],
                 }
             p_entry.update(pack)
             print "WILL SAVE FOR INSERT", p_entry

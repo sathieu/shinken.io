@@ -181,6 +181,8 @@ class ShinkenIO(WebBackend):
         print "File %s is saved" % p
 
 
+    def get_package(self, name):
+        return self.packages.find_one({'_id' : name})
 
 
     def get_recently_updated(self):
