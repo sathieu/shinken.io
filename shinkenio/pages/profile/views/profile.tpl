@@ -6,6 +6,7 @@
 %github = profile['github']
 %twitter = profile['twitter']
 %homepage = profile['homepage']
+%api_key  = profile['api_key']
 
 <div id="profile">
   
@@ -55,6 +56,11 @@
         <td><a rel="me" href="{{homepage}}">{{homepage}}</a></td>
       </tr>
       %end
+      <tr>
+        <th>Api Key</th>
+        <td>{{api_key}}</td>
+      </tr>
+
       
     </tbody>
   </table>

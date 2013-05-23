@@ -66,6 +66,6 @@ def signup_post():
     
 
 pages = {
-    signup: {'routes': ['/signup'], 'view': 'signup', 'static': True},
+    signup: {'routes': ['/signup'], 'view': 'signup', 'static': True, 'wraps':['classic']},
     signup_post: {'routes': ['/signup'], 'method':'POST', 'view': 'signup', 'static': True},
     }

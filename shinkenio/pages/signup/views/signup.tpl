@@ -1,4 +1,4 @@
-%rebase layout title='Shinken.io', refresh=False, js=['signup/signup.js']
+%rebase layout app=app, user=user, helper=helper, title='Shinken.io', refresh=False, js=['signup/signup.js']
 
 
 <h1>Sign all the way up</h1>

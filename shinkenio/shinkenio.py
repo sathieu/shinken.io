@@ -121,6 +121,7 @@ class ShinkenIO(WebBackend):
             'github'       : '',
             'twitter'      : '',
             'homepage'     : '',
+            'api_key'      : uuid.uuid4().get_hex(),
             }
         
         print "Trying to create user", user
