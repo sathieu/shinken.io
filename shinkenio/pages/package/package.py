@@ -22,7 +22,11 @@ def package(name=''):
     return {'package':_package}
 
 
+def grab(pname=''):
+    return app.grab_package(pname)
+
 
 pages = {
     package:           {'routes': ['/package/:name'], 'view': 'package', 'wraps': ['classic']},
+    grab   :           {'routes': ['/grab/:pname'], 'view': None},
     }

@@ -24,7 +24,7 @@ import pages
 
 # And the bottle part
 import webgears.bottle as bottle
-from webgears.bottle import route, view, request, response, redirect
+from webgears.bottle import route, view, request, response, redirect, static_file
 from webgears.webgears import WebBackend
 
 # And make us outnt in errors log
@@ -48,6 +48,7 @@ class ShinkenIO(WebBackend):
         self.auth_secret = self.conf.get('http', 'auth_secret')
         self.data = self.conf.get('http', 'data')
         self.data_in = self.data+'/in'
+        self.data_packages = self.data+'/packages'
         self.open_database()
     
     
@@ -206,3 +207,22 @@ class ShinkenIO(WebBackend):
             if s_keywords.issubset(p_keywords):
                 res.append(p)
         return res
+
+
+
+    def grab_package(self, pname):
+        print "A user is grabbing package", pname
+        # first try to get the package information so we will find the tar.gz place
+
+        p = self.get_package(pname)
+        if not p:
+            print "NO SUCH PACKAGE %s" % pname
+            return None
+        puser = p['user_id']
+        
+        tar_gz_path = os.path.join(puser, pname+'.tar.gz')
+        if not os.path.exists(os.path.join(self.data_packages, tar_gz_path)):
+            raise Exception("Cannot find the file %s" % tar_gz_path)
+        print "WILL GIVE", tar_gz_path
+        return static_file(tar_gz_path, root=self.data_packages)
+        
