@@ -191,3 +191,18 @@ class ShinkenIO(WebBackend):
 
     def get_number_of_packages(self):
         return self.packages.count()
+
+
+    def search(self, keywords=[]):
+        print "IN APP, LOOKING FOR KEYWORDS", keywords
+        res = []
+
+        # TODO : Optimize this full scan!
+        for p in self.packages.find():
+            valid = True
+            p_keywords = set(p['keywords'])
+            s_keywords = set(keywords)
+            print "Comparing", s_keywords, "in", p_keywords
+            if s_keywords.issubset(p_keywords):
+                res.append(p)
+        return res
