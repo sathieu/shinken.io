@@ -195,8 +195,8 @@ class ShinkenIO(WebBackend):
         return ''
 
 
-    def get_recently_updated(self):
-        return self.packages.find().sort([('updated',-1)]).limit(10)
+    def get_recently_updated(self, _type):
+        return self.packages.find({'types' : { '$all' : [_type]}}).sort([('updated',-1)]).limit(10)
 
 
     def get_number_of_packages(self):
