@@ -15,7 +15,7 @@ import tarfile
 import json
 import shutil
 from pprint import pprint
-
+import markdown
 
 
 class Groker():
@@ -98,6 +98,17 @@ class Groker():
                     print "ERROR processing the file", f, ":", exp
                     continue
 
+                print "Looking for README.md file in %s" % f
+                readme = ''
+                try:
+                    readme_fd = tar.extractfile('./README.md')
+                    readme = readme_fd.read()
+                    readme_fd.close()
+                except tarfile.TarError, exp:
+                    # Maybe the file is missing, not a problem
+                    pass
+
+
                 pack = self.parse_package_json(buf)
                 # Ok maybe it's an invalide one?
                 if not pack.get('name'):
@@ -105,7 +116,7 @@ class Groker():
                     continue
 
                 # Dest file will be in data/
-                self.create_or_update_pack(user, pack, f)
+                self.create_or_update_pack(user, pack, f, readme)
 
 
     def assume_string(self, s):
@@ -159,7 +170,7 @@ class Groker():
         return self.packages.find_one({'_id' : pname})
 
 
-    def create_or_update_pack(self, user, pack, archive_in):
+    def create_or_update_pack(self, user, pack, archive_in, readme):
         pname = pack.get('name')
         prev  = self.get_pack(pname)
         if prev:
@@ -187,7 +198,12 @@ class Groker():
             
         # Now move the file in the good place
         # If not exists, the directory should be readalbe by every one
-        dest_dir = os.path.join(self.data_packages, user)
+        user_dir = os.path.join(self.data_packages, user)
+        if not os.path.exists(user_dir):
+            os.mkdir(user_dir)
+            os.chmod(user_dir, 0o755)
+        
+        dest_dir = os.path.join(user_dir, pname)
         if not os.path.exists(dest_dir):
             os.mkdir(dest_dir)
             os.chmod(dest_dir, 0o755)
@@ -199,6 +215,26 @@ class Groker():
         except OSError, exp:
             print "ERROR: cannot move archive file from %s to %s : %s" % (archive_in, dest_file, str(exp))
             return
+
+        # Now save the readme.md and make a readme.html version too
+        if readme:
+            readme_path = os.path.join(dest_dir, 'README.md')
+            fd = open(readme_path+'tmp', 'w')
+            fd.write(readme)
+            fd.close()
+            shutil.move(readme_path+'tmp', readme_path)
+            print "SAVED README.md file at %s" % readme_path
+            # Now parse it and transform it in HTML
+            html = markdown.markdown(readme, extensions=['toc', 'nl2br',
+                                                          'codehilite', 'fenced_code']
+                                     )
+            html_path = os.path.join(dest_dir, 'README.html')
+            fd = open(html_path+'tmp', 'w')
+            fd.write(html)
+            fd.close()
+            shutil.move(html_path+'tmp', html_path)
+            print "SAVED README.html file at %s" % readme_path
+
 
         print "UPDATE: the archive %s is updated" % dest_file
         
