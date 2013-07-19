@@ -50,6 +50,12 @@ class ShinkenIO(WebBackend):
         self.data_in = self.data+'/in'
         self.data_packages = self.data+'/packages'
         self.open_database()
+
+        # And add the favicon ico too
+        @route('/favicon.ico')
+        def give_favicon():
+            return static_file('favicon.ico', root='/opt/shinken.io/static/img')
+
     
     
     def open_database(self):
@@ -199,7 +205,18 @@ class ShinkenIO(WebBackend):
         return self.packages.find({'types' : { '$all' : [_type]}}).sort([('updated',-1)]).limit(10)
 
 
+    def get_all_packs_updated(self):
+        return [p for p in self.packages.find({'types' : { '$all' : ['pack']}}).sort([('updated',-1)])]
+
+
+    def get_all_modules_updated(self):
+        return [p for p in self.packages.find({'types' : { '$all' : ['module']}}).sort([('updated',-1)])]
+
+
     def get_most_starred(self):
+        return self.packages.find().sort([('starred_len',1)]).limit(10)
+
+    def get_all_most_starred(self):
         return self.packages.find().sort([('starred_len',1)]).limit(10)
     
 

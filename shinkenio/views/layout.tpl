@@ -30,6 +30,8 @@
       <script src="http://static.shinken.io/js/json2.js"></script>
     <![endif]-->
 
+    <link rel="shortcut icon" type="image/ico" href="http://static.shinken.io/img/favicon.ico" />
+
     <!-- Le styles -->
     <link type="text/css" rel="stylesheet" media="all" href="http://static.shinken.io/css/normalize.css">
     <link type="text/css" rel="stylesheet" media="all" href="http://static.shinken.io/css/index.css">
