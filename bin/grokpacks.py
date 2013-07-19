@@ -191,6 +191,7 @@ class Groker():
                 "dependencies"   : [],
                 "dependents"     : [],
                 "starred"        : [],
+                "starred_len"    : 0,
                 }
             p_entry.update(pack)
             print "WILL SAVE FOR INSERT", p_entry

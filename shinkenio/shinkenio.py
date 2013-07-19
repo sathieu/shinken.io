@@ -199,6 +199,10 @@ class ShinkenIO(WebBackend):
         return self.packages.find({'types' : { '$all' : [_type]}}).sort([('updated',-1)]).limit(10)
 
 
+    def get_most_starred(self):
+        return self.packages.find().sort([('starred_len',1)]).limit(10)
+    
+
     def get_number_of_packages(self):
         return self.packages.count()
 

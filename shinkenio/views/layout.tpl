@@ -2,7 +2,7 @@
 
 %#Set default values
 %if not 'js' in locals(): js = []
-%if not 'title' in locals(): title = 'No title'
+%if not 'title' in locals(): title = 'Shinken.io'
 %if not 'css' in locals(): css = []
 %if not 'print_menu' in locals(): print_menu = True
 %if not 'print_header' in locals(): print_header = True

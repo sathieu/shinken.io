@@ -38,5 +38,22 @@ def search_cli():
     return json.dumps({'status': 200, 'result': res})
 
 
+def search():
+    print "CLI: Trying to search for a package by tags", app.request.GET.__dict__
+    tags_raw = app.request.GET.get('q', '')
+    tags = (t.strip() for t in tags_raw.split(' '))
+    tags = [t for t in tags if t]
+    
+    print "We will finally search for", tags
+    
+    res = []
+    # Ok here it's a valid user :)
+    
+    packages = app.search(keywords=tags)
+    
+    return {'results' : packages}
+
+
 pages = {search_cli: {'routes': ['/searchcli'], 'method': 'GET', 'view': None, 'static': False},
+         search: {'routes': ['/search'], 'method': 'GET', 'view': 'search', 'static': False , 'wraps': ['classic']},
          }
