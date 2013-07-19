@@ -34,6 +34,7 @@
     <link type="text/css" rel="stylesheet" media="all" href="http://static.shinken.io/css/normalize.css">
     <link type="text/css" rel="stylesheet" media="all" href="http://static.shinken.io/css/index.css">
     <link type="text/css" rel="stylesheet" media="all" href="http://static.shinken.io/css/sh.css">
+    <link type="text/css" rel="stylesheet" media="all" href="http://static.shinken.io/css/codehilite.css">
 
 
     <!-- Source+Sans+Pro from google fonts -->

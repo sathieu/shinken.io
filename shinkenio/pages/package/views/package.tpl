@@ -127,6 +127,12 @@
   </tbody></table>
 
   <div class="details">
+    %if readme:
+    <section id='readme'>
+    {{!readme}}
+    </section>
+    %else:
     None
+    %end
   </div>
 </div>

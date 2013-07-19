@@ -186,6 +186,15 @@ class ShinkenIO(WebBackend):
         return self.packages.find_one({'_id' : name})
 
 
+    def get_readme(self, uname, pname):
+        readme_file = os.path.join(self.data_packages, uname, pname, 'README.html')
+        print "IS FILE EXISTS?", readme_file
+        if os.path.exists(readme_file):
+            with open(readme_file, 'r') as f:
+                return f.read()
+        return ''
+
+
     def get_recently_updated(self):
         return self.packages.find().sort([('updated',-1)]).limit(10)
 

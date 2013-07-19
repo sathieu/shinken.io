@@ -19,7 +19,10 @@ def package(name=''):
     # If we ask ~we get our own profile, if we are connected of course
     _package = app.get_package(name)
 
-    return {'package':_package}
+    uname = _package['user_id']
+    readme = app.get_readme(uname, name)
+
+    return {'package':_package, 'readme':readme}
 
 
 def grab(pname=''):

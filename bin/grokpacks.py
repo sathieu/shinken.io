@@ -226,7 +226,7 @@ class Groker():
             print "SAVED README.md file at %s" % readme_path
             # Now parse it and transform it in HTML
             html = markdown.markdown(readme, extensions=['toc', 'nl2br',
-                                                          'codehilite', 'fenced_code']
+                                                          'codehilite']#, 'fenced_code']
                                      )
             html_path = os.path.join(dest_dir, 'README.html')
             fd = open(html_path+'tmp', 'w')
