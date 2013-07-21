@@ -137,6 +137,7 @@ class ShinkenIO(WebBackend):
             'twitter'      : '',
             'homepage'     : '',
             'api_key'      : uuid.uuid4().get_hex(),
+            'nb_packages'  : 0,
             }
         
         print "Trying to create user", user

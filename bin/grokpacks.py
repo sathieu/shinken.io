@@ -196,6 +196,14 @@ class Groker():
             p_entry.update(pack)
             print "WILL SAVE FOR INSERT", p_entry
             self.packages.insert(p_entry)
+
+            # Increase the number of packages for this user
+            user_entry = self.get_user(user)
+            nb = user_entry.get('nb_packages', 0)
+            user_entry['nb_packages'] = nb + 1
+            print "NOW THE USER %s GOT %d packages" % (user, nb + 1)
+            self.users.update({'_id': user}, user_entry)
+            
             
         # Now move the file in the good place
         # If not exists, the directory should be readalbe by every one
@@ -208,7 +216,7 @@ class Groker():
         if not os.path.exists(dest_dir):
             os.mkdir(dest_dir)
             os.chmod(dest_dir, 0o755)
-
+        
         dest_file = os.path.join(dest_dir, pname+'.tar.gz')
         print "DEST", archive_in, dest_file
         try:
@@ -227,7 +235,7 @@ class Groker():
             print "SAVED README.md file at %s" % readme_path
             # Now parse it and transform it in HTML
             html = markdown.markdown(readme, extensions=['toc', 'nl2br',
-                                                          'codehilite']#, 'fenced_code']
+                                                          'codehilite']
                                      )
             html_path = os.path.join(dest_dir, 'README.html')
             fd = open(html_path+'tmp', 'w')
