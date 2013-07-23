@@ -85,8 +85,8 @@ class Stater():
             
             print "Computed stats", stats
             self.save_user_stats(user_id, stats)
-
-
+ 
+    
     
     def assume_string(self, s):
         if not isinstance(s, basestring):
