@@ -11,11 +11,12 @@
 
   <h1>{{name}}</h1>
   <img src="http://static.shinken.io/img/achievements/{{name}}.png" alt="{{name}}">
+  <i>{{sub}}</i>							  
   <table class="metadata">
     <tbody>
       <tr>
         <th></th>
-        <td>{{sub}}</td>
+        <td></td>
       </tr>
       
       <tr>

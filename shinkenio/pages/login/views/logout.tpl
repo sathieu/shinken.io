@@ -1,4 +1,4 @@
-%rebase layout title='Shinken.io', refresh=False
+%rebase layout locals(), title='Shinken.io', refresh=False
 
 
 <script>window.location='/';</script>

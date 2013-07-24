@@ -8,6 +8,7 @@
 %homepage = profile['homepage']
 %api_key  = profile['api_key']
 %achievements = profile['achievements']
+%xp = profile['xp']
 
 <div id="profile">
   
@@ -71,6 +72,11 @@
 	  <a href='/achievements/{{a}}'> <img title='{{a}}' src='http://static.shinken.io/img/achievements/{{a}}.png' class='achievement-img' /></a>
 	  %end
 	</td>
+      <tr>
+        <th>XP</th>
+        <td>{{xp}}</td>
+      </tr>
+
       </tr>
       
       

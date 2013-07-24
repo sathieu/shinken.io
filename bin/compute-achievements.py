@@ -29,12 +29,48 @@ def pack_crafter(user, stats):
 def warchief(user, stats):
     return user['_id'] == 'naparuba'
 
+def community_dev(user, stats):
+    return stats.get('org_contribs', 0) > 1
+
+def core_dev(user, stats):
+    return stats.get('core_contribs', 0) > 25
+
+def wood_commiter(user, stats):
+    return (stats.get('core_contribs', 0) + stats.get('org_contribs', 0)) > 10
+
+def stone_commiter(user, stats):
+    return (stats.get('core_contribs', 0) + stats.get('org_contribs', 0)) > 50
+
+def iron_commiter(user, stats):
+    return (stats.get('core_contribs', 0) + stats.get('org_contribs', 0)) > 400
+
+def diamond_commiter(user, stats):
+    return (stats.get('core_contribs', 0) + stats.get('org_contribs', 0)) > 1000
+
+def doc_writer(user, stats):
+    return stats.get('wiki_account', False)
+
+# ADD Seb and Imrane
+def first_packages_runners(user, stats):
+    return user['_id'] in ('frescha',)
+
+def first_packages_winner(user, stats):
+    return False#user['_id'] in ('frescha',)
 
 
-ACHIEVEMENTS = {'pack-boy': {'f':pack_boy, 'xp':100},
-               'pack-man': {'f':pack_man, 'xp':500},
-               'pack-crafter' : {'f':pack_crafter, 'xp':1000},
-               'warchief' : {'f':warchief, 'xp':500},
+ACHIEVEMENTS = {'pack-boy': {'f':pack_boy, 'xp':50},
+                'pack-man': {'f':pack_man, 'xp':500},
+                'pack-crafter' : {'f':pack_crafter, 'xp':1000},
+                'warchief' : {'f':warchief, 'xp':500},
+                'community-dev' : {'f':community_dev, 'xp':50},
+                'core-dev' : {'f':core_dev, 'xp':200},
+                'wood-commiter' : {'f':wood_commiter, 'xp':50},
+                'stone-commiter' : {'f':wood_commiter, 'xp':250},
+                'iron-commiter' : {'f':iron_commiter, 'xp':500},
+                'diamond-commiter' : {'f':diamond_commiter, 'xp':1000},
+                'doc-writer' : {'f':doc_writer, 'xp':50},
+                'first-packages-runners' : {'f':first_packages_runners, 'xp':50},
+                'first-packages-winner' : {'f':first_packages_winner, 'xp':100},
                }
 
 
