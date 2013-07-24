@@ -1,0 +1,7 @@
+[http]
+auth_secret=
+data=/opt/shinken.io/data
+
+[github]
+login=
+password=
