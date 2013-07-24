@@ -71,17 +71,18 @@ class Stater():
             print "*********%s" % user_id , stats
             user_packages = self.packages.find({'user_id':user_id})
             stats['nb_packages'] = 0
+            types = {}
             for p in user_packages:
                 stats['nb_packages'] += 1
-                types = {}
+
                 print "Package found", p['_id']
                 for t in p.get('types', []):
                     nb = types.get(t, 0) + 1
                     types[t] = nb
-                for t in types:
-                    k = 'nb_%ss' % t
-                    nb = stats.get(k, 0) + 1
-                    stats[k] = nb
+            print "GOT", types
+            for t in types:
+                k = 'nb_%ss' % t
+                stats[k] = types[t]
             
             print "Computed stats", stats
             self.save_user_stats(user_id, stats)
