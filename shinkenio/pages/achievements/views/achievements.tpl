@@ -32,4 +32,5 @@
     %end
   </ul>
 
+  <i>Got an idea about a cool achievement to add? Just <a href="https://github.com/naparuba/shinken.io">submit it</a> :)</i>
 </div>
