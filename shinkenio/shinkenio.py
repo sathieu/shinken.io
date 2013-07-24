@@ -48,6 +48,7 @@ class ShinkenIO(WebBackend):
         self.auth_secret = self.conf.get('http', 'auth_secret')
         self.data = self.conf.get('http', 'data')
         self.data_in = self.data+'/in'
+        self.data_achievements = self.data+'/achievements'
         self.data_packages = self.data+'/packages'
         self.open_database()
 
@@ -139,6 +140,8 @@ class ShinkenIO(WebBackend):
             'api_key'      : uuid.uuid4().get_hex(),
             'nb_packages'  : 0,
             'achievements' : [],
+            'achievements_enabled' : True,
+            'xp'           : 0,
             }
         
         print "Trying to create user", user

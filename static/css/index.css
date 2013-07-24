@@ -536,3 +536,34 @@ html body ul.search-results .package.search-result {
 #profile table.metadata tr:first-child {
   border-top: none;
 }
+
+#profile .achievement-img {
+    width: 48px;
+    height: 48px;
+}
+
+
+#achievements,
+#achievements li,
+#achievements ul {
+  list-style: none;
+  padding: 0;
+}
+.achievement {
+  margin-top:10px;
+  margin-bottom:10px;
+  padding: 0.5em 0;
+  position: relative;
+  border-bottom: solid 1px #ccc;
+}
+.achievement .details {
+  position: absolute;
+  top: 1em;
+  right: 0;
+}
+.achievement ul li {
+  display: inline;
+}
+.achievement .sub{
+ font-style: italic;
+}

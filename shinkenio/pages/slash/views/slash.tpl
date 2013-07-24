@@ -63,7 +63,7 @@
 	  <h2>Shinken.io Stuff</h2>
 	  <ul>
             <li><a href="/doc/faq.html">FAQ</a></li>
-            <li><a href="/doc/README.html">Readme</a></li>
+            <li><a href="/achievements">Achievements</a></li>
             <li><a href="/doc/disputes.html">Handling Disputes</a></li>
             <li><a href="https://github.com/naparuba/shinken/issues">Shinken Bugs</a></li>
             <li><a href="https://github.com/naparuba/shinken.io/issues">Website Bugs</a></li>

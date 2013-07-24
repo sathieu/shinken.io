@@ -17,6 +17,28 @@ from pprint import pprint
 
 
 
+def pack_boy(user, stats):
+    return stats.get('nb_packages', 0) > 1
+
+def pack_man(user, stats):
+    return stats.get('nb_packages', 0) > 10
+
+def pack_crafter(user, stats):
+    return stats.get('nb_packages', 0) > 30
+
+def warchief(user, stats):
+    return user['_id'] == 'naparuba'
+
+
+
+ACHIEVEMENTS = {'pack-boy': {'f':pack_boy, 'xp':100},
+               'pack-man': {'f':pack_man, 'xp':500},
+               'pack-crafter' : {'f':pack_crafter, 'xp':1000},
+               'warchief' : {'f':warchief, 'xp':500},
+               }
+
+
+
 class Achivementer():
     def __init__(self, cfg_path):
         self.conf = ConfigParser.SafeConfigParser()
@@ -52,19 +74,36 @@ class Achivementer():
 
     def run(self):
         print "Starting to compute the achievements"
-        for user in self.users.find():
-
+        for user in self.users.find({'achievements_enabled':True}):
             user_id = user['_id']
+            
             print user
             achievements = set(user.get('achievements'))
-            print "Computing stats for", user, "that got previously", achievements
+            
+            xp = user.get('xp')
+            
+            nb_ach = len(achievements)
+            print "Computing stats for", user_id, "that got previously", achievements, "and", xp, "XP"
             stats = self.get_user_stats(user_id)
             print "*********%s" % user_id , stats
-            
+
+            for (k,v) in ACHIEVEMENTS.iteritems():
+                f = v['f']
+                if k not in achievements:
+                    print "LOOKING FOR", k, "for", user_id
+                    b = f(user, stats)
+                    if b:
+                        print "GOT IT!", k
+                        achievements.add(k)
+                        xp += v['xp']
             
             achievements = list(achievements)
             print "Computed achievements", achievements
-            #self.users.update({'_id':user_id}, {'achievements': achievements})
+            print "AND XP", xp
+            if len(achievements) != nb_ach:
+                user['xp'] = xp
+                user['achievements'] = achievements
+                self.users.update({'_id':user_id}, user)
             #self.save_user_stats(user_id, stats)
             
     

@@ -7,6 +7,7 @@
 %twitter = profile['twitter']
 %homepage = profile['homepage']
 %api_key  = profile['api_key']
+%achievements = profile['achievements']
 
 <div id="profile">
   
@@ -60,7 +61,18 @@
         <th>Api Key</th>
         <td>{{api_key}}</td>
       </tr>
-
+      <tr>
+	<th>Achievements</th>
+	<td>
+	  %if len(achievements) == 0:
+	  None? Get a look at <a href="/achievements">achievements</a> about how to get some :)
+	  %end
+	  %for a in achievements:
+	  <a href='/achievements/{{a}}'> <img title='{{a}}' src='http://static.shinken.io/img/achievements/{{a}}.png' class='achievement-img' /></a>
+	  %end
+	</td>
+      </tr>
+      
       
     </tbody>
   </table>
