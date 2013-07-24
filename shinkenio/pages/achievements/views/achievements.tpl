@@ -24,7 +24,7 @@
 	<tr>
 	  <th></th>
 	  <th>How to get it:</th>
-	  <td>	{{how}}
+	  <td>	{{!how}}
 	  </td>
 	</tr>
       </table>

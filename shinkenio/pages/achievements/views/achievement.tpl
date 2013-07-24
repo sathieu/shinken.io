@@ -20,7 +20,7 @@
       
       <tr>
         <th>How to get it:</th>
-        <td>{{how}}</td>
+        <td>{{!how}}</td>
       </tr>
     </tbody>
   </table>
