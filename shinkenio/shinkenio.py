@@ -81,6 +81,12 @@ class ShinkenIO(WebBackend):
         return u
 
 
+    def get_user_from_email(self, email):
+        u = self.users.find_one({'email' : email})
+        print "founded from email", u
+        return u
+
+
     def get_user_auth(self):
         print "get_user_auth::", request.get_cookie("user", secret=self.auth_secret)
         # First we look for the user name

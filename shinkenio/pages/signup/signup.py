@@ -31,7 +31,7 @@ def signup_post():
     # Now the others fields
     password = app.request.forms.get('password', '')
     verify   = app.request.forms.get('verify', '')
-    email    = app.request.forms.get('email', '')
+    email    = app.request.forms.get('email', '').strip()
 
     # Maybe the user forget something...
     if not name or not password or not verify or not email:
@@ -53,6 +53,12 @@ def signup_post():
     u = app.get_user(name)
     if u:
         err = " This user already exists!"
+        return json.dumps({'status':400, 'text':err})
+
+    # If the email is already use, bail out too!
+    u = app.get_user_from_email(email)
+    if u:
+        err = "This email is already registered!"
         return json.dumps({'status':400, 'text':err})
 
     # Ok here we got a valid user
