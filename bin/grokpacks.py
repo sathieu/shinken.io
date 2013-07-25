@@ -16,7 +16,7 @@ import json
 import shutil
 from pprint import pprint
 import markdown
-
+from twitter import Twitter, OAuth
 
 class Groker():
     def __init__(self, cfg_path):
@@ -27,6 +27,7 @@ class Groker():
         self.data_tmp = self.data+'/tmp'
         self.data_packages = self.data+'/packages'
         self.open_database()
+
     
     
     def open_database(self):
@@ -170,6 +171,20 @@ class Groker():
         return self.packages.find_one({'_id' : pname})
 
 
+    def post_twitter_new_package(self, pname):        
+        access_token = self.conf.get('twitter', 'access_token')
+        access_secret = self.conf.get('twitter', 'access_secret')
+        consumer_key = self.conf.get('twitter', 'consumer_key')
+        consumer_secret = self.conf.get('twitter', 'consumer_secret')
+        
+        try:
+            t = Twitter(auth=OAuth(access_token,access_secret,consumer_key,consumer_secret))
+            t.statuses.update(status="New package available: %s  http://shinken.io/package/%s" % (pname,pname))
+        except Exception, exp:
+            print "ERROR IN TWITTER POST", exp
+
+
+
     def create_or_update_pack(self, user, pack, archive_in, readme):
         pname = pack.get('name')
         prev  = self.get_pack(pname)
@@ -204,6 +219,8 @@ class Groker():
             print "NOW THE USER %s GOT %d packages" % (user, nb + 1)
             self.users.update({'_id': user}, user_entry)
             
+            # Also send a twitter news
+            self.post_twitter_new_package(pname)
             
         # Now move the file in the good place
         # If not exists, the directory should be readalbe by every one

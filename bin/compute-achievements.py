@@ -50,12 +50,11 @@ def diamond_commiter(user, stats):
 def doc_writer(user, stats):
     return stats.get('wiki_account', False)
 
-# ADD Seb and Imrane
 def first_packages_runners(user, stats):
-    return user['_id'] in ('frescha',)
+    return user['_id'] in ('frescha','dessaiimrane', 'seb-solon')
 
 def first_packages_winner(user, stats):
-    return False#user['_id'] in ('frescha',)
+    return user['_id'] == 'dessaiimrane'
 
 
 ACHIEVEMENTS = {'pack-boy': {'f':pack_boy, 'xp':50},
