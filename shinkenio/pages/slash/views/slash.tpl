@@ -50,8 +50,8 @@
 	<td>
 	  <h2>Most prolific</h2>
 	  <ul>
-	  %for package in app.get_most_starred():
-	    <li>{{package.get('starred_len',0)}} <a href="/package/{{package['name']}}">{{package['name']}}</a></li>
+	  %for u in app.get_most_xp():
+	    <li>{{u.get('xp',0)}} <a href="/~{{u['_id']}}">{{u['_id']}}</a></li>
 	  %end
             <li><a href="/browse/updated">More...</a></li>
 	  </ul>

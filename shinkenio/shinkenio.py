@@ -227,6 +227,9 @@ class ShinkenIO(WebBackend):
     def get_most_starred(self):
         return self.packages.find().sort([('starred_len',1)]).limit(10)
 
+    def get_most_xp(self):
+        return self.users.find().sort([('xp',-1)]).limit(10)
+
     def get_all_most_starred(self):
         return self.packages.find().sort([('starred_len',1)]).limit(10)
     
