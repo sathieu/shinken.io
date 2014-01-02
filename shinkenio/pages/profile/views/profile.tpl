@@ -42,7 +42,7 @@
       </tr>
       %if github:
       <tr>
-        <th>Github</th>
+        <th>GitHub</th>
         <td><a rel="me" href="https://github.com/{{github}}">{{github}}</a></td>
       </tr>
       %end

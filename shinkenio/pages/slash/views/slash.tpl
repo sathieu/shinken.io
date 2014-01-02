@@ -12,7 +12,7 @@
   </table>
   <a href="http://github.com/naparuba/shinken.io">Patches welcome!</a>
   <p>Any package can be installed by using <a href="http://github.com/naparuba/shinken">shinken install</a></p>
-  <p>Add your package to this index by using<a href="http://github.com/naparuba/shinken">shinken publish</a></p>
+  <p>Add your package to this index by using <a href="http://github.com/naparuba/shinken">shinken publish</a></p>
   
   <table>
     <tbody>
