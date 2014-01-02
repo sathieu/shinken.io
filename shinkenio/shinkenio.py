@@ -50,6 +50,7 @@ class ShinkenIO(WebBackend):
         self.data_in = self.data+'/in'
         self.data_achievements = self.data+'/achievements'
         self.data_packages = self.data+'/packages'
+        self.data_users = self.data+'/users'
         self.open_database()
 
         # And add the favicon ico too
@@ -204,7 +205,7 @@ class ShinkenIO(WebBackend):
 
 
     def get_readme(self, uname, pname):
-        readme_file = os.path.join(self.data_packages, uname, pname, 'README.html')
+        readme_file = os.path.join(self.data_users, uname, 'packages', pname, 'README.html')
         print "IS FILE EXISTS?", readme_file
         if os.path.exists(readme_file):
             with open(readme_file, 'r') as f:
@@ -264,9 +265,9 @@ class ShinkenIO(WebBackend):
             return None
         puser = p['user_id']
         
-        tar_gz_path = os.path.join(puser, pname+'.tar.gz')
-        if not os.path.exists(os.path.join(self.data_packages, tar_gz_path)):
+        tar_gz_path = os.path.join(puser, 'packages', pname, pname+'.tar.gz')
+        if not os.path.exists(os.path.join(self.data_users, tar_gz_path)):
             raise Exception("Cannot find the file %s" % tar_gz_path)
         print "WILL GIVE", tar_gz_path
-        return static_file(tar_gz_path, root=self.data_packages)
+        return static_file(tar_gz_path, root=self.data_users)
         

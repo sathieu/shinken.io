@@ -25,7 +25,8 @@ class Groker():
         self.data = self.conf.get('http', 'data')
         self.data_in = self.data+'/in'
         self.data_tmp = self.data+'/tmp'
-        self.data_packages = self.data+'/packages'
+        #self.data_packages = self.data+'/packages'
+        self.data_users = self.data+'/users'
         self.open_database()
 
     
@@ -103,9 +104,9 @@ class Groker():
                 readme = ''
                 try:
                     readme_fd = tar.extractfile('./README.md')
-                    readme = readme_fd.read()
+                    readme = readme_fd.read().decode('utf8', 'ignore')
                     readme_fd.close()
-                except tarfile.TarError, exp:
+                except (tarfile.TarError,KeyError) , exp:
                     # Maybe the file is missing, not a problem
                     pass
 
@@ -224,12 +225,17 @@ class Groker():
             
         # Now move the file in the good place
         # If not exists, the directory should be readalbe by every one
-        user_dir = os.path.join(self.data_packages, user)
+        user_dir = os.path.join(self.data_users, user)
         if not os.path.exists(user_dir):
             os.mkdir(user_dir)
             os.chmod(user_dir, 0o755)
         
-        dest_dir = os.path.join(user_dir, pname)
+        packages_dir = os.path.join(user_dir, 'packages')
+        if not os.path.exists(packages_dir):
+            os.mkdir(packages_dir)
+            os.chmod(packages_dir, 0o755)
+
+        dest_dir = os.path.join(packages_dir, pname)
         if not os.path.exists(dest_dir):
             os.mkdir(dest_dir)
             os.chmod(dest_dir, 0o755)
