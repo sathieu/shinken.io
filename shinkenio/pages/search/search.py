@@ -33,6 +33,8 @@ def search_cli():
     for p in packages:
         res.append({'name':p['_id'], 'user_id':p['user_id'],
                     'description':p['description'], 'keywords':p['keywords'],
+                    'version':p['version'], 'updated':p['updated'],
+                    'repository':p['repository'], 'homepage':p['homepage'],
                     })
     
     return json.dumps({'status': 200, 'result': res})
